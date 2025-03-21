@@ -43,6 +43,8 @@ We will compare the emissions of various foods per weight, calorie, and protein 
 
 It can be found in the directory [milestone_1](/milestone_1), in the Jupiter Notebook called [Exploratory_data_analysis](/milestone_1/Exploratory_data_analysis.ipynb).
 
+There are only **49** foods in the intersection between the FAOSTAT database and the Banana index database, which represent only the **16.2%** and **30.6%** respectively of the whole food diversity per database. However, taking into account that not all the food items has the same representation in the FAOSTAT (the entries depend mostly on the ```Area```, ```Element``` and ```Unit```, not only in the ```Item```), we know that we can link **24.7%** of the toal entries of the FAOSTAT database with the Banana index database."
+
 ### Related work
 
 

@@ -10,24 +10,15 @@
 
 ## Milestone 1 (21st March, 5pm)
 
-**10% of the final grade**
-
-This is a preliminary milestone to let you set up goals for your final project and assess the feasibility of your ideas.
-Please, fill the following sections about your project.
-
-*(max. 2000 characters per section)*
-
 ### Dataset
 
 For our datasets, we utilized two separate data sets provided by Kaggle. Both of them have been pulled from reputable sources and require a limited amount of preprocessing or data-cleaning before starting the visualization. We combine the joint data from both datasets to provide a more insightful representation of our topic. This limits our number of datapoints, as described in the explanatory data analysis phase, but should be sufficient for appropriate visualizations.
 
-**Banana Index**: 
+**Banana Index** - [Link](https://www.kaggle.com/datasets/joebeachcapital/banana-index): 
 - The Economist’s Banana Index, first introduced in the article "A Different Way to Measure the Climate Impact of Food" and updated annually, quantifies the greenhouse-gas emissions of foods—by weight, calorie, or protein—using bananas as a reference. Data sources include Our World in Data (2023), research by M. Clark et al. (2022), and Poore & Nemecek (2018), with the index formally cited as The Economist and Solstad, S. (corresponding author), 2023, referencing its original publication in The Economist on April 11, 2023.
-- **Link**: https://www.kaggle.com/datasets/joebeachcapital/banana-index
 
-**FAOSTAT Crops and Livestock Production**:
+**FAOSTAT Crops and Livestock Production** - [Link](https://www.kaggle.com/datasets/vijayveersingh/faostat-crops-and-livestock-data?select=Production_Crops_Livestock_E_All_Data_NOFLAG.csv):
 - This dataset, sourced from FAOSTAT, contains information on crops and livestock products across various countries and regions, providing annual statistics on harvested area, yield, and production. It includes item codes, measurement units, and metadata such as reliability flags indicating whether figures are estimated or official. Supporting agricultural and economic research, the dataset facilitates food production analysis. Provided by the Food and Agriculture Organization (FAO) through its FAOSTAT database, the data was accessed on January 11, 2025, from the FAO Crops and Livestock Products Data section.
-- **Link**: https://www.kaggle.com/datasets/vijayveersingh/faostat-crops-and-livestock-data?select=Production_Crops_Livestock_E_All_Data_NOFLAG.csv
 
 ### Problematic
 
@@ -47,11 +38,10 @@ There are only **49** foods in the intersection between the FAOSTAT database and
 
 ### Related work
 
+To the extent of our knowledge, the two datasets we are examining have not been combined in the sense that we are planning to do. However, the Banana Index data has been visualized by the Economist in its publishing of the article ["A Different Way to Measure the Climate Impact of Food"](https://www.economist.com/graphic-detail/2023/04/11/a-different-way-to-measure-the-climate-impact-of-food). Our approach takes this one step further and looks at the origin and production of these foods globally. The FAOSTAT crop and livestock production data in turn has not really been visualized in any meaningful or insightful way (see [Kaggle notebook](https://www.kaggle.com/code/mahmoudredagamail/faostat-agriculture-data)), and only has been used in certain machine learning models. We aim to enhance these datasets by also creating a thought-provoking and meaningful story around them by adding new qualitative and visual aspects.
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+Our inspiration centered around the original article from the Economist and a few older projects, namely [the exploration of different types of coffee beans](https://com-480-data-visualization.github.io/coffee_BEaN/) and [global food balances](https://com-480-data-visualization.github.io/datavis-project-2022-datagang/src/). Both of these projects were centered around agricultural products and global impact. We initially wanted to combine data on recipes from the [MealDB](https://www.themealdb.com/api.php) to examine the impact of individual dishes, but shifted to a larger view on the world.
+
 
 ## Milestone 2 (18th April, 5pm)
 

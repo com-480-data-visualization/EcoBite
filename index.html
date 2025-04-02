@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Impact Visualization</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="container mx-auto p-8 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-semibold text-blue-600 mb-6 text-center">Food Production and Environmental Impact</h1>
+        <div id="food-comparison" class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Food Comparison Chart</h2>
+            <p class="text-gray-700 mb-4">This chart will visualize the environmental impact of different foods.</p>
+            <svg id="food-comparison-chart"></svg>
+        </div>
+        <div id="production-map" class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Global Production Map</h2>
+            <p class="text-gray-700 mb-4">This map will show the production of key food items around the world.</p>
+            <div id="production-map-container"></div>
+        </div>
+        <div id="correlation-viz" class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Correlation Visualization</h2>
+            <p class="text-gray-700 mb-4">This visualization will explore the correlation between production scale and environmental impact.</p>
+            <svg id="correlation-chart"></svg>
+        </div>
+    </div>
+    <script>
+
+    const foodData = [
+        { food: 'Beef', emissions: 50 },
+        { food: 'Chicken', emissions: 20 },
+        { food: 'Rice', emissions: 10 },
+        { food: 'Lentils', emissions: 5 }
+    ];
+
+    const chartContainer = d3.select('#food-comparison-chart');
+    const containerWidth = document.getElementById('food-comparison').offsetWidth;
+    const containerHeight = 300;
+    const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+    const width = containerWidth - margin.left - margin.right;
+    const height = containerHeight - margin.top - margin.bottom;
+
+    const svg = chartContainer
+        .attr('width', containerWidth)
+        .attr('height', containerHeight);
+
+    const g = svg.append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleBand()
+        .domain(foodData.map(d => d.food))
+        .rangeRound([0, width])
+        .padding(0.1);
+
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(foodData, d => d.emissions)])
+        .rangeRound([height, 0]);
+
+    g.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+            .style("font-size", "12px");
+
+    g.append('g')
+        .call(d3.axisLeft(y))
+        .selectAll("text")
+            .style("font-size", "12px");
+
+
+    g.selectAll('.bar')
+        .data(foodData)
+        .enter().append('rect')
+        .attr('class', 'bar')
+        .attr('x', d => x(d.food))
+        .attr('y', d => y(d.emissions))
+        .attr('width', x.bandwidth())
+        .attr('height', d => height - y(d.emissions))
+        .attr('fill', 'steelblue');
+
+    const mapContainer = d3.select('#production-map-container');
+    const mapDiv = mapContainer.append('div')
+        .attr('id', 'map')
+        .style('width', containerWidth + 'px')
+        .style('height', '400px');
+
+    const correlationContainer = d3.select('#correlation-chart')
+      .attr('width', containerWidth)
+      .attr('height', containerHeight);
+
+    correlationContainer.append('text')
+      .attr('x', containerWidth / 2)
+      .attr('y', containerHeight / 2)
+      .attr('text-anchor', 'middle')
+      .text('Correlation Chart Placeholder')
+      .style('font-size', '16px')
+      .style('fill', '#666');
+
+    </script>
+</body>
+</html>

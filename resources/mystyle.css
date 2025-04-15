@@ -1,0 +1,77 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+}
+
+.slider {
+width: 500px
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.row {
+    width:100%;
+    margin-bottom: 20px;
+    text-align: center;
+    justify-content: space-around;
+    display: flex;
+}
+
+.charts-row {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+svg {
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.charts-container {                                                                                                                                                                             
+    flex: 1;                                                                                                                                                                                    
+    display: flex;                                                                                                                                                                              
+    flex-direction: column;                                                                                                                                                                     
+}                                 
+
+/* MAP begin */
+.map-container {                                                                                                                                                                                
+    flex: 1;                                                                                                                                                                                    
+}                                                                                                                                                                                               
+
+.country {                                                                                                                                                                                              
+    fill: #ccc;                                                                                                                                                                                         
+    stroke: #fff;                                                                                                                                                                                       
+    stroke-width: 0.5;                                                                                                                                                                                  
+    cursor: pointer;                                                                                                                                                                                    
+}                                                                                                                                                                                                       
+
+.country:hover {                                                                                                                                                                                        
+    fill: #008000; 
+}                                                                                                                                                                                                       
+
+.selected {                                                                                                                                                                                             
+    fill: steelblue !important;                                                                                                                                                                         
+}                                                                                                                                                                                                       
+
+.tooltip {                                                                                                                                                                                              
+    position: absolute;                                                                                                                                                                                 
+    background: white;                                                                                                                                                                                  
+    border: 1px solid #999;                                                                                                                                                                             
+    padding: 5px 10px;                                                                                                                                                                                  
+    pointer-events: none;                                                                                                                                                                               
+    font-size: 14px;                                                                                                                                                                                    
+    border-radius: 4px;                                                                                                                                                                                 
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);                                                                                                                                                            
+}                                                                                                                                                                                                       
+/* MAP end*/

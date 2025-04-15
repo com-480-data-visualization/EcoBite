@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>                                                                                                                                           
+    <script src="https://unpkg.com/topojson@3"></script>                                                                                                                                            
+    <script src="resources/my_codes.js"> </script>                                                                                                                                                            
+    <link rel="stylesheet" type="text/css" href="resources/mystyle.css"/>
     <style>
       body {
         font-family: 'Inter', sans-serif;
@@ -36,7 +40,7 @@
     </div>
     <script>
 
-    const foodData = [
+    (const foodData = [
         { food: 'Beef', emissions: 50 },
         { food: 'Chicken', emissions: 20 },
         { food: 'Rice', emissions: 10 },
@@ -104,8 +108,56 @@
       .attr('text-anchor', 'middle')
       .text('Correlation Chart Placeholder')
       .style('font-size', '16px')
-      .style('fill', '#666');
+      .style('fill', '#666'))();
 
     </script>
+
+    <script src="resources/load_data.js"> </script> 
+
+    <div class="container">                         
+
+        <div class="row">                          
+            <h2>Interactive World Map</h2>        
+        </div>                                   
+
+        <div class="row">                       
+            <!-- Place here the world map -->  
+            <svg id="map" width="600" height="300"></svg>    
+        </div>                                              
+
+
+        <div class="row" style="margin:20px 0; ">      
+            <div>                                              
+                <label for="year-slider">Select Year:</label> 
+                <!-- year selector -->                       
+                <input type="range" class="slider" id="year-slider" min="1962" max="2023" step="1" value="2023" />   
+                <span id="year-label">2023</span>                                                                   
+            </div>                                                                                                 
+        </div>                                                                                                    
+
+
+
+
+
+                                                                                                                                                                                              
+                                                                                                                                                                                               
+        <div class="row charts-row">       
+            <div class="chart-container">  
+                <!-- 1st bar chart -->    
+                <svg id="chart1" width="570" height="300"></svg>   
+            </div>                                                
+            <div class="chart-container">                        
+                <!-- 2nd bar chart -->                          
+                <svg id="chart2" width="570" height="300"></svg>   
+            </div>                                                
+        </div>                                                   
+    </div>                                                      
+
+
+    <!-- draw the map, and update the bar chart based o hte selected country and year -->  
+    <script src="resources/map.js"> </script>                                                      
+
+
+
 </body>
 </html>

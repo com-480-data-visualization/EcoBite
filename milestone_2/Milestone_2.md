@@ -43,12 +43,23 @@ Beyond the core functionality, these additional features (not in priority order)
 
 The successful implementation of this project will require a diverse set of tools and knowledge areas spanning visualization, data processing, design, and deployment. 
 
-### 2.1. Visualizing and page construction
+### 2.1. Tools for visualizing and page construction
 
 For visualization, we'll leverage D3.js for custom interactive components including bubble charts and timelines, drawing on lectures about data visualization fundamentals and interactive web visualizations. Core web technologies (HTML/CSS/JavaScript) will form the foundation of our site, building on web development basics and frontend framework lectures. SVG will enable custom vector graphics and transitions, utilizing skills from vector graphics lectures, while Chart.js may provide simpler visualizations where appropriate.
 
-### 2.2. Data processing, designing and deployment
+### 2.2. Tools for data processing, designing and deployment
 
 For data processing, we'll employ Python with Pandas for cleaning and preprocessing our datasets. QGIS may assist in preparing geospatial data, drawing on geographic information systems concepts. Our design process will utilize Figma or Adobe XD for wireframes and mockups, informed by user interface design lectures, while Adobe Illustrator will help create custom icons and graphics based on visual design principles. For deployment, GitHub Pages will host our application, applying concepts from deployment and publishing lectures. 
 
 Additionally, we'll need to draw on knowledge from lectures covering data visualization ethics, narrative visualization techniques, interaction design principles, color theory, and animation in data visualization to ensure our final product is both visually compelling and ethically sound.
+
+### 2.3. Lectures needed at the very least
+
+- 4.1. Data
+- 4.2. D3.js
+- 5.1. Interactions
+- 7.2. Dos and don'ts
+- 8.1. Maps
+- 11.1. Tabular data
+- 12.1. Storytelling 
+- (+ any others that may be deemed useful later on)

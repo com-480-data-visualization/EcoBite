@@ -47,6 +47,8 @@ Our inspiration centered around the original article from the Economist and a fe
 
 **10% of the final grade**
 
+[Functinoal prototype](https://com-480-data-visualization.github.io/EcoBite/)
+
 
 ## Milestone 3 (30th May, 5pm)
 

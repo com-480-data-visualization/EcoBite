@@ -9,7 +9,7 @@ function draw_scatter(scatterChart_idx){
     const svg = d3.select("#div_scatter_banana_faostat"+scatterChart_idx)
     .append("svg")
     .attr("id", "scatter_banana_faostat"+scatterChart_idx)
-    .attr("width", 570)
+    .attr("width", 550)
     .attr("height", 600);
 
     //a normal svg tag

@@ -1,5 +1,6 @@
 // Make the dataset globally accessible via window
 window.productionData = [];
+window.bananaFaostatData = [];
 window.bananaData = [];
 
 // Load the cleaned FAOSTAT dataset

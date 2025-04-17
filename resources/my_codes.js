@@ -65,11 +65,13 @@ function drawBarChart(svgSelector, data, selectedYear) {
 
 //to check if the data is loaded.
 //not used now, used in hte past and maybe usefull in hte future
-function whenDataReady(callback) {
-      if (window.productionData.length > 0) {
-              callback();
+function when_bananaFaostatData_Ready(callback) {
+      if (window.bananaFaostatData.length > 0) {
+              callback(1);
+              callback(2);
+              callback(3);
             } else {
-                    setTimeout(() => whenDataReady(callback), 100); // wait and retry
+                    setTimeout(() => when_bananaFaostatData_Ready(callback), 100); // wait and retry
                   }
 }
 

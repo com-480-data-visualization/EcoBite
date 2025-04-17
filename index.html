@@ -65,11 +65,24 @@
                 <svg id="chart2" width="570" height="300"></svg>   
             </div>                                                
         </div>                                                   
-    </div>                                                      
 
+
+        <!-- each div_scatter_banana_faostat will contain one scatter plot, based on its index.-->
+        <!-- the relationship between index and chart is defined in the function draw_scatter, on scatter.js-->
+        <div class="row charts-row">       
+            <div id="div_scatter_banana_faostat1"  style="margin:20px 0; " style="position: relative;"></div>                                                   
+            <div id="div_scatter_banana_faostat2"  style="margin:20px 0; " style="position: relative;"></div>                                                   
+        </div>                                                   
+        <div class="row" style="margin:20px 0; ">      
+            <div id="div_scatter_banana_faostat3"  style="margin:20px 0; " style="position: relative;"></div>                                                   
+        </div>                                                   
+
+    </div>                                                      
 
     <!-- draw the map, and update the bar chart based o hte selected country and year -->  
     <script src="resources/map.js"> </script>                                                      
+    <script src="resources/scatter.js"> </script>                                                      
+
 
 
 </body>

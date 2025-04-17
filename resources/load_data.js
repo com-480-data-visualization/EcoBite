@@ -2,14 +2,24 @@
 window.productionData = [];
 window.bananaData = [];
 
-// Load the production data
+// Load the cleaned FAOSTAT dataset
 d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/EcoBite/master/data/Country_only_Production_tons_FAOSTAT.csv")
   .then(data => {
     window.productionData = data;
-    console.log("Production Data loaded:", data.length, "rows");
+    console.log("Clean FAOSTAT dataset loaded:", data.length, "rows");
   })
   .catch(error => {
-    console.error("Failed to load production data:", error);
+    console.error("Failed to load clean FAOSTAT dataset:", error);
+  });
+
+// Load the cleaned and combined banan index and FAOSTAT dataset 
+d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/EcoBite/master/data/world_Production_tons_FAOSTAT_bananaIndex.csv")
+  .then(data => {
+    window.bananaFaostatData = data;
+    console.log("Clean and combined  banan index and FAOSTAT dataset loaded:", data.length, "rows");
+  })
+  .catch(error => {
+    console.error("Failed to load clean and combined banana index and FAOSTAT dataset:", error);
   });
 
 // Load the banana data

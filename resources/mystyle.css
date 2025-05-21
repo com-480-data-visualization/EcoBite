@@ -1,24 +1,55 @@
+:root {
+    --color-primary: #008112;    
+    --color-secondary: #4E1F00;  
+    --color-accent: #FEBA17;     
+    --color-bg: #f2f2f2;         
+    --color-text: #333333;       
+    --color-accent-rgb: 254, 186, 23;     
+              }
+
+
 body {
-    font-family: sans-serif;
+    font-family: 'Inter' sans-serif;
     margin: 0px;
     /*
     margin: 20px;
     */
-    background-color: #f9f9f9;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 html{
     scroll-behavior:smooth;
 }
 
+.main_title {
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 31px;
+    text-align:center;
+}
+
+.section_title {
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 28px;
+    text-align:left;
+}
 
 .slider {
     width: 90%;
+    accent-color: var(--color-secondary);
 }
 
 .container {
     max-width: 1200px;
     margin: auto;
+}
+
+.capsule {
+    padding:10px 30px;
+    border-radius: var(--radius-lg); 
+    background-color: #ffffff;
 }
 
 .row {
@@ -40,12 +71,17 @@ html{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top:5px;
+    padding-bottom:5px;
 }
 
+    /*
 svg {
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-secondary);
+    border-radius:5px;    
     background-color: #fff;
 }
+*/
 
 .charts-container {                                                                                                                                                                             
     flex: 1;                                                                                                                                                                                    
@@ -81,15 +117,15 @@ section .wrapper {
     width: 10px;
     height: 10px;
     border-radius:25%;
-    background-color: #000;
+    background-color: var(--color-accent);
     top:50%;
     left:50%;
     transform: translate(-50%, -50%);
 }
 
 .scroll-indicator a.active::after{
-    background: red;
-    transform: translate(-50%, -50%) scale(1.3);
+    background: var(--color-primary);
+    transform: translate(-50%, -50%) scale(1.5);
 }
 
 .scroll-indicator a::before{
@@ -98,8 +134,8 @@ section .wrapper {
     right: 24px;
     top:50%;
     transform: translate(4px, -50%);
-    background-color:red;
-    color:#fff;
+    background-color: var(--color-accent);
+    color: var(--color-bg);
     padding: 2px 16px;
     pointer-events: none;
     box-shadow: 0 7px 14px -6px rgba(0,0,0, 0.8);
@@ -125,14 +161,16 @@ section .wrapper {
 }                                                                                                                                                                                               
 
 .country {                                                                                                                                                                                              
-    fill: #ccc;                                                                                                                                                                                         
-    stroke: #fff;                                                                                                                                                                                       
-    stroke-width: 0.5;                                                                                                                                                                                  
+    fill: var(--color-accent);    
+    fill-opacity:0.6;
+    stroke: var(--color-secondary); 
+    stroke-opacity : 0.4;
+    stroke-width: 0.3;                                                                                                                                                                                  
     cursor: pointer;                                                                                                                                                                                    
 }                                                                                                                                                                                                       
 
 .country:hover {                                                                                                                                                                                        
-    fill: #008000; 
+    fill: var(--color-secondary); 
 }                                                                                                                                                                                                       
 
 .selected {                                                                                                                                                                                             
@@ -149,4 +187,36 @@ section .wrapper {
     border-radius: 4px;                                                                                                                                                                                 
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);                                                                                                                                                            
 }                                                                                                                                                                                                       
+
+.map_bar {
+    fill: var(--color-primary);
+    stroke: var(--color-primary) ; 
+}
+
+/*
+.map_bar_bg{
+    background-color: rgba(254, 186, 23, 0.0);
+}
+*/
+
+.map_bar_title{
+    fill:var(--color-secondary);
+}
+
+.map_bar_text1{
+    fill:var(--color-bg);
+    stroke-width: 0.3;
+    font-weight: bold;
+}
+.map_bar_text2{
+    fill:var(--color-primary);
+    stroke-width: 0.3;
+    font-weight: bold;
+}
+
+.axis .domain,
+.axis .tick line {
+      stroke: var(--color-secondary);
+      stroke-width:1.3;
+  }
 /* MAP end*/

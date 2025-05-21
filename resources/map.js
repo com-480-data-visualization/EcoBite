@@ -30,14 +30,14 @@ d3.json("https://unpkg.com/world-atlas@1.1.4/world/110m.json").then(worldData =>
         .join("path")
         .attr("class", "country")
         .attr("d", path)
-        .attr("fill", "#ccc")
-        .attr("stroke", "#fff")
+        .attr("fill", "#000000")
+        .attr("stroke", "#FEBA17")
         .attr("stroke-width", 0.5)
         .style("cursor", "pointer")
         .on("click", function (event, d) {
             const id = d.id; //m49 code as id
             handle_selected_country(id); //whne a country is slected pass the m49 code as id
-            d3.select(this).attr("fill", "#69b3a2");
+            d3.select(this).attr("fill", "#008112");
         });
 });
 

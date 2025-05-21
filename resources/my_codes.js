@@ -1,6 +1,7 @@
 //Draw bar chart
 function drawBarChart(svgSelector, data, selectedYear) {
-    const svg = d3.select(svgSelector);
+    const svg = d3.select(svgSelector)
+                .attr("class", "map_bar_bg");
     svg.selectAll("*").remove();
 
     const width = +svg.attr("width");
@@ -10,6 +11,7 @@ function drawBarChart(svgSelector, data, selectedYear) {
                 .attr("x", width / 2)
                 .attr("y", 20)
                 .attr("text-anchor", "middle")
+                .attr("class", "map_bar_title")
                 .style("font-size", "18px")
                 .style("font-weight", "bold")
                 //.text(`Top 5 most produced items in ${data[0].area} \n ${selectedYear}`);
@@ -38,10 +40,12 @@ function drawBarChart(svgSelector, data, selectedYear) {
         .data(data)
         .enter()
         .append("rect")
+        .attr("class", "map_bar")
         .attr("y", d => y(d.item))
         .attr("width", d => x(d.value))
         .attr("height", y.bandwidth())
-        .attr("fill", (d, i) => color(i));
+        //.attr("fill", (d, i) => color(i));
+        .attr("fill", "#000000");
 
     // Labels (value)
     chart.selectAll("text.value")
@@ -60,12 +64,21 @@ function drawBarChart(svgSelector, data, selectedYear) {
         })
         .attr("y", d => y(d.item) + y.bandwidth() / 2 + 4)
         .text(d => d3.format(".2s")(d.value))
-        .style("font-size", "16px");
+        .style("font-size", "16px")
+        .attr("class", d => {
+            const barEnd = x(d.value);
+            const textWidth = 35; // approx
+            const padding =15;
+            //Put it inside if there is space, if not outside
+            return barEnd >textWidth+padding+10 ? "map_bar_text1" : "map_bar_text2";
+        });
 
     // Y axis
     chart.append("g")
+        .attr("class", "axis")
         .call(d3.axisLeft(y))
         .selectAll("text")
+        .attr("class", "map_bar_title")
         .style("font-size", "14px")
         .each(function(d) {
             const text=d3.select(this);
@@ -112,9 +125,11 @@ function drawBarChart(svgSelector, data, selectedYear) {
 
     // X axis
     chart.append("g")
+        .attr("class", "axis")
         .attr("transform", `translate(0,${chartHeight})`)
         .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".2s")))
         .selectAll("text")
+        .attr("class", "map_bar_title")
         .style("font-size", "14px");
 
 

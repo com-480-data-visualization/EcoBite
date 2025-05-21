@@ -11,6 +11,7 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>                                                                                                                                           
     <script src="https://unpkg.com/topojson@3"></script>                                                                                                                                            
     <script src="resources/my_codes.js"> </script>                                                                                                                                                            
+    <script defer src="resources/style_interact.js"> </script>                                                                                                                                                            
     <link rel="stylesheet" type="text/css" href="resources/mystyle.css"/>
     <style>
       body {
@@ -22,26 +23,39 @@
 <body class="bg-gray-100 p-8">
     
 <div class="container">
-    
-    <h1 class="text-3xl font-semibold text-blue-600 mb-6 text-center">Food Production and Environmental Impact</h1>
-    
-    <div class="container mx-auto p-8 bg-white rounded-lg shadow-md" style="margin:10px">    
-        <div id="food-comparison" class="mb-8">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Food Comparison Chart</h2>
-            <p class="text-gray-700 mb-4">This chart will visualize the environmental impact of different foods.</p>
-            <svg id="food-comparison-chart"></svg>
-        </div>
+
+    <div class="scroll-indicator">
+        <a href="#hero" class="active" data-section="About"></a>
+        <a href="#food_comparison" data-section="Food comparison"></a>
+        <a href="#most_produced_foods" data-section="Most produced foods"></a>
+        <a href="#production_vs_bananas_index" data-section="Production vs bananas"></a>
     </div>
+
+    <section id='hero'>
+        <h1 class="text-3xl font-semibold text-blue-600 mb-6 text-center">Food Production and Environmental Impact</h1>
+    </section>
+
+    <section id='food_comparison'>
+        <div class="container mx-auto p-8 bg-white rounded-lg shadow-md wrapper" style="margin:10px">    
+            <div id="food-comparison" class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Food Comparison Chart</h2>
+                <p class="text-gray-700 mb-4">This chart will visualize the environmental impact of different foods.</p>
+                <svg id="food-comparison-chart"></svg>
+            </div>
+        </div>
+    </section>
 
     <script src="resources/load_data.js"> </script> 
     <script src="resources/bar_chart.js"> </script>
 
                              
-
-        <div class="container mx-auto p-8 bg-white rounded-lg shadow-md" style="margin:10px">
+    <section id="most_produced_foods">
+        <div class="container mx-auto p-8 bg-white rounded-lg shadow-md wrapper" style="margin:10px">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4">Top 5 most poduced foods per year by country</h2>
             <div id="food-comparison" class="mb-8">
-                <p class="text-gray-700 mb-4">Select a year and a country in the map, and visualize in the following bar charts the top 5 most produced foods. There are two bar charts that update alternately to compare countries or years.</p>
+                <p class="text-gray-700 mb-4">Select a year and a country in the map, and visualize in the 
+                following bar charts the top 5 most produced foods. 
+                There are two bar charts that update alternately to compare countries or years.</p>
 
                 <div class="charts-row">       
 
@@ -77,12 +91,16 @@
                 
             </div>
         </div>
+    </section>
 
 
-        <div class="container mx-auto p-8 bg-white rounded-lg shadow-md" style="margin:10px">
+    <section id='production_vs_bananas_index'>
+        <div class="container mx-auto p-8 bg-white rounded-lg shadow-md wrapper" style="margin:10px">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4">Food production vs bananas index</h2>
             <div id="food-comparison" class="mb-8">
-                <p class="text-gray-700 mb-4">To compare the production of some foods against its bananas index per weight, kilocalorie and protein. You can see the information of each point by putting your mouse over them. The red dot indicates bananas.</p>
+                <p class="text-gray-700 mb-4">To compare the production of some foods against its bananas 
+                index per weight, kilocalorie and protein. You can see the information of each point by 
+                putting your mouse over them. The red dot indicates bananas.</p>
                                                            
                 <!-- each div_scatter_banana_faostat will contain one scatter plot, based on its index.-->
                 <!-- the relationship between index and chart is defined in the function draw_scatter, on scatter.js-->
@@ -96,8 +114,9 @@
 
             </div>
         </div>
+    </section>
 
-    </div>                                                      
+</div>                                                      
 
     <!-- draw the map, and update the bar chart based o hte selected country and year -->  
     <script src="resources/map.js"> </script>                                                      

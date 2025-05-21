@@ -8,19 +8,20 @@ function drawBarChart(svgSelector, data, selectedYear) {
     if (data.length > 0) {
             svg.append("text")
                 .attr("x", width / 2)
-                .attr("y", 16)
+                .attr("y", 20)
                 .attr("text-anchor", "middle")
-                .style("font-size", "16px")
+                .style("font-size", "18px")
                 .style("font-weight", "bold")
-                .text(`Top 5 most produced items in ${data[0].area} \n ${selectedYear}`);
-    }
-    const margin = { top: 20, right: 20, bottom: 40, left: 150 };
+                //.text(`Top 5 most produced items in ${data[0].area} \n ${selectedYear}`);
+                .text(`${data[0].area} (${selectedYear})`);
+    const margin = { top: 30, right: 5, bottom: 30, left: 170 };
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
 
+
     const x = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.value)])
-        .range([0, chartWidth]);
+        .range([0, chartWidth])
 
     const y = d3.scaleBand()
         .domain(data.map(d => d.item))
@@ -48,19 +49,95 @@ function drawBarChart(svgSelector, data, selectedYear) {
         .enter()
         .append("text")
         .attr("class", "value")
-        .attr("x", d => x(d.value) + 5)
+        //.attr("x", d => x(d.value) + 5)
+        //.attr("x", d => x(0) + 15 )
+        .attr("x", d => {
+            const barEnd = x(d.value);
+            const textWidth = 35; // approx
+            const padding =15;
+            //Put it inside if there is space, if not outside
+            return barEnd >textWidth+padding+10 ? barEnd - padding - textWidth : barEnd + padding;
+        })
         .attr("y", d => y(d.item) + y.bandwidth() / 2 + 4)
         .text(d => d3.format(".2s")(d.value))
-        .style("font-size", "12px");
+        .style("font-size", "16px");
 
     // Y axis
     chart.append("g")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y))
+        .selectAll("text")
+        .style("font-size", "14px")
+        .each(function(d) {
+            const text=d3.select(this);
+            text.text(null);
+            const words = d.split(" ");
+
+            //If its too long. crop it on or
+            if (words.length > 7){
+                const index = words.indexOf("or");
+                if (index !== -1) {
+                    words.splice(index);
+                }
+            }
+
+            //split lable in two
+            const firsthalf = words.slice(0, Math.ceil(words.length / 2));
+            const secondhalf = words.slice( Math.ceil(words.length / 2), words.length);
+            const name1 = firsthalf.join(" ");
+            const name2 = secondhalf.join(" ");
+
+            //console.log(words);
+
+            //place it
+            //if 2, in the middle of both
+            if (name2 !== ""){
+                text.append("tspan")
+                            .text(name1)
+                            .attr("x", -10)
+                            .attr("dy", -5)
+                text.append("tspan")
+                            .text(name2)
+                            .attr("x", -10)
+                            .attr("dy", 15); // move down for second line
+            //if one, in the middle of it
+            } else {
+                text.append("tspan")
+                            .text(name1)
+                            .attr("x", -10)
+                            .attr("dy", 3)
+            }
+
+
+        })
 
     // X axis
     chart.append("g")
         .attr("transform", `translate(0,${chartHeight})`)
-        .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".2s")));
+        .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".2s")))
+        .selectAll("text")
+        .style("font-size", "14px");
+
+
+    } else {
+        svg.append("text")
+        .attr("x",250)
+        .attr("y",150)
+        .attr("text-anchor","middle")
+        .style("font-size", "16px")
+        .style("fill", "#000000")
+        //.text("No information avaible.\nPlease select another country or anotkher year.")
+        .selectAll("tspan")
+        .data([
+            "No information available.",
+            "Please select a different country or year."
+        ])
+        .enter()
+        .append("tspan")
+        .attr("x", 250)  // Align all tspans to same x
+        .attr("dy", (d, i) => i === 0 ? 0 : "1.2em")  // Line spacing
+        .text(d => d);
+    }
+
 }
 
 //to check if the data is loaded.

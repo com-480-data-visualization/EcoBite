@@ -83,11 +83,11 @@ svg {
 }
 */
 
-.charts-container {                                                                                                                                                                             
-    flex: 1;                                                                                                                                                                                    
-    display: flex;                                                                                                                                                                              
-    flex-direction: column;                                                                                                                                                                     
-}                                 
+.charts-container {   
+    flex: 1;         
+    display: flex;  
+    flex-direction: column;        
+}                                
 
 section{
     min-height: 70vh;
@@ -134,8 +134,8 @@ section .wrapper {
     right: 24px;
     top:50%;
     transform: translate(4px, -50%);
-    background-color: var(--color-accent);
-    color: var(--color-bg);
+    background-color: var(--color-bg);
+    color: var(--color-primary);
     padding: 2px 16px;
     pointer-events: none;
     box-shadow: 0 7px 14px -6px rgba(0,0,0, 0.8);

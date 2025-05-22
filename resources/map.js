@@ -39,6 +39,61 @@ d3.json("https://unpkg.com/world-atlas@1.1.4/world/110m.json").then(worldData =>
             handle_selected_country(id); //whne a country is slected pass the m49 code as id
             d3.select(this).attr("fill", "#008112");
         });
+
+
+
+    svgMAP.append("defs").append("clipPath")
+        .attr("id", "clip-circle")
+        .append("circle")
+        .attr("id", "clip-circle-shape")
+        .attr("r", 20) // radius of magnifier
+        .attr("cx", -999) // start offscreen
+        .attr("cy", -999);
+
+    const zoomedMap = svgMAP.append("g")
+        .attr("class", "zoomed-map")
+        .attr("clip-path", "url(#clip-circle)")
+        .attr("pointer-events", "none");
+
+
+    zoomedMap.selectAll("path")
+        .data(countries)
+        .join("path")
+        .attr("d", path)
+        .attr("class", "country_zoom")
+        .style("pointer-events", "auto")
+        .on("click", function (event, d) {
+            const id = d.id; //m49 code as id
+            handle_selected_country(id); //whne a country is slected pass the m49 code as id
+            d3.select(this).attr("fill", "#008112");
+            });
+
+    //dissapear zoom when mouse not on map
+    svgMAP.on("mouseleave", () => {
+        d3.select("#clip-circle-shape").style("display", "none");
+        });
+
+    //appear zoom when mouse is on map
+    svgMAP.on("mouseenter", () => {
+        d3.select("#clip-circle-shape").style("display", "block");
+        });
+
+
+
+    svgMAP.on("mousemove", function (event) {
+        const [x, y] = d3.pointer(event);
+
+        // Move the circle
+        svgMAP.select("#clip-circle-shape")
+            .attr("cx", x)
+            .attr("cy", y);
+
+        // Zoomed transform
+        zoomedMap.attr("transform", `translate(${x * -6 + x}, ${y * -6 + y}) scale(6)`);
+    });
+
+
+
 });
 
 let selectedYear = 2023; // default year

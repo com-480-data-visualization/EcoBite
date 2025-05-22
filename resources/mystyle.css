@@ -47,7 +47,7 @@ html{
 }
 
 .capsule {
-    padding:10px 30px;
+    padding:10px 10px;
     border-radius: var(--radius-lg); 
     background-color: #ffffff;
 }
@@ -160,44 +160,51 @@ section .wrapper {
     flex: 1;                                                                                                                                                                                    
 }                                                                                                                                                                                               
 
-.country {                                                                                                                                                                                              
-    fill: var(--color-accent);    
+.country {   
+    fill: var(--color-accent);   
     fill-opacity:0.6;
     stroke: var(--color-secondary); 
     stroke-opacity : 0.4;
-    stroke-width: 0.3;                                                                                                                                                                                  
-    cursor: pointer;                                                                                                                                                                                    
-}                                                                                                                                                                                                       
+    stroke-width: 0.3;              
+    cursor: pointer;              
+}                                
 
-.country:hover {                                                                                                                                                                                        
+.country:hover {                 
     fill: var(--color-secondary); 
-}                                                                                                                                                                                                       
+}                                    
 
-.selected {                                                                                                                                                                                             
-    fill: steelblue !important;                                                                                                                                                                         
-}                                                                                                                                                                                                       
+.country_zoom {   
+    fill: var(--color-accent);   
+    fill-opacity:1.0;
+    stroke: var(--color-secondary); 
+    stroke-opacity : 1.0;
+    stroke-width: 0.3;              
+    cursor: pointer;              
+}                                
 
-.tooltip {                                                                                                                                                                                              
-    position: absolute;                                                                                                                                                                                 
-    background: white;                                                                                                                                                                                  
-    border: 1px solid #999;                                                                                                                                                                             
-    padding: 5px 10px;                                                                                                                                                                                  
-    pointer-events: none;                                                                                                                                                                               
-    font-size: 14px;                                                                                                                                                                                    
-    border-radius: 4px;                                                                                                                                                                                 
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);                                                                                                                                                            
-}                                                                                                                                                                                                       
+.country_zoom:hover {                 
+    fill: var(--color-secondary); 
+}                                    
+
+.selected {                          
+    fill: steelblue !important;     
+}                                  
+
+.tooltip {                        
+    position: absolute;         
+    background: white;         
+    border: 1px solid #999;   
+    padding: 5px 10px;       
+    pointer-events: none;   
+    font-size: 14px;                          
+    border-radius: 4px;                      
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);  
+}                                            
 
 .map_bar {
     fill: var(--color-primary);
     stroke: var(--color-primary) ; 
 }
-
-/*
-.map_bar_bg{
-    background-color: rgba(254, 186, 23, 0.0);
-}
-*/
 
 .map_bar_title{
     fill:var(--color-secondary);
@@ -219,4 +226,5 @@ section .wrapper {
       stroke: var(--color-secondary);
       stroke-width:1.3;
   }
+
 /* MAP end*/

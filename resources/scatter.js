@@ -38,7 +38,7 @@ function draw_scatter(scatterChart_idx){
     };
 
     //filter the data 
-    const data = window.bananaFaostatData.filter(d =>                                                                                                                                               
+    const data = window.bananaFaostatData.filter(d =>     
         d["Production"] !== "" &&   
         d[bananaIndex] !== "" &&      
         +d["Production"] > 0 &&
@@ -48,16 +48,16 @@ function draw_scatter(scatterChart_idx){
     //scale x
     // logarithmic scale due to data dispersion
     // maybe there is a better way to display
-    const x = d3.scaleLog()                                                                                                                                                                     
+    const x = d3.scaleLog()                              
         .domain(d3.extent(data, d => +d["Production"]))
-        .range([0, innerWidth])                                                                                                                                                                       
+        .range([0, innerWidth])                         
         .nice();             
 
     //scale y
     const y = d3.scaleLog()
         .domain(d3.extent(data, d => +d[bananaIndex]))
         .range([innerHeight, 0])
-        .nice()
+        .nice();
 
 
     // Horizontal grid
@@ -69,7 +69,7 @@ function draw_scatter(scatterChart_idx){
             .tickFormat("")        // ← hide labels
         )
         .selectAll("Line")
-        .style("stroke", "#A9A9A9");
+        .attr("class", "scatter_grid");
 
     // Vertical grid
     g.append("g")
@@ -81,23 +81,27 @@ function draw_scatter(scatterChart_idx){
             .tickFormat("")         // ← hide labels
         )
         .selectAll("Line")
-        .style("stroke", "#A9A9A9");
+        .attr("class", "scatter_grid");
 
     //Axes
     g.append("g")
+        .attr("class", "axis")
         .attr("transform", `translate(0, ${innerHeight})`)
-        .call(d3.axisBottom(x).ticks(10, "~s") );
+        .call(d3.axisBottom(x).ticks(5, "~s") );
     g.append("g")
+        .attr("class", "axis")
         .call(d3.axisLeft(y).ticks(10,"~s") );
 
     //Axes labels
     svgScatter.append("text")
         .attr("x", widthScatter / 2)
         .attr("y", heightScatter -10)
+        .attr("class", "scatter_axis")
         .attr("text-anchor", "middle")
         .text("Production [log scale]")
 
     svgScatter.append("text")
+        .attr("class", "scatter_axis")
         .attr("transform", "rotate(-90)")
         .attr("x", -heightScatter / 2)
         .attr("y", 15)
@@ -116,9 +120,20 @@ function draw_scatter(scatterChart_idx){
         .style("padding", "10px");
 
     //show info when is on
-    const mouseover = function(d) {
+    const mouseover = function(event, d) {
         tooltip.style("opacity", 1);
+        const itemClass="item-" + d["Item"].replace(" ", "_").replace(",","-"); 
+        //console.log(itemClass);
+        d3.selectAll("." + itemClass)
+            .style("fill", d => d["Item"] === "Bananas" ? "#008112" : "#4E1F00")
+            .style("fill-opacity", 1.0)
+            .style("stroke", d => d["Item"] === "Bananas" ? "#008112" : "#4E1F00")
+            .style("stroke-width", "1.5px")
+            .attr("r", 7);
+
     };
+
+
 
     //where to show info
     const mousemove = function(event, d) {
@@ -129,11 +144,22 @@ function draw_scatter(scatterChart_idx){
     };
 
     //hide info 
-    const mouseleave = function(d) {
+    const mouseleave = function(event, d) {
         tooltip
             .transition()
             .duration(200)
             .style("opacity", 0);
+        const itemClass="item-" + d["Item"].replace(" ", "_").replace(",","-"); 
+        //console.log(itemClass);
+        console.log(d);
+        d3.selectAll("." + itemClass)
+            .style("fill", d => d["Item"] === "Bananas" ? "#008112" : "#FEBA17")
+            .style("fill-opacity", d => d["Item"] === "Bananas" ? 1.0 : 0.5)
+            .style("stroke-opacity", 1.0)
+            .style("stroke", d => d["Item"] === "Bananas" ? "#008112" : "#4E1F00")
+            .style("stroke-width", "1.5px")
+            .attr("r", 5);
+
     };
 
     // Add the points
@@ -141,13 +167,18 @@ function draw_scatter(scatterChart_idx){
         .data(data)
         .enter()
         .append("circle")
+        .attr("class", d => "dot item-" + d["Item"].replace(" ", "_").replace(",","-"))
         .attr("cx", d => x(+d["Production"]) )
         .attr("cy", d => y(+d[bananaIndex]) )
         .attr("r", 5)
         //.attr("fill", "#69b3a2");
-        .style("fill", d => d["Item"] === "Bananas" ? "#ff0000" : "#69b3a2")
-        .style("opacity", 0.7)
-        .style("stroke", "white")
+        .style("fill", d => d["Item"] === "Bananas" ? "#008112" : "#FEBA17")
+        .style("fill-opacity", d => d["Item"] === "Bananas" ? 1.0 : 0.5)
+        //.style("opacity", 0.7)
+        .style("stroke-opacity", 1.0)
+        .style("stroke", d => d["Item"] === "Bananas" ? "#008112" : "#4E1F00")
+        .style("stroke-width", "1.5px")
+        //.style("stroke", "white")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave);

@@ -152,13 +152,30 @@ section .wrapper {
 
 
 
+/* SCATTER begin */
+
+.scatter_axis {
+    fill: var(--color-secondary);
+    font-size: 14px;
+    text-align:center;
+    font-weight: bold;
+}
+
+.scatter_grid {
+    stroke: var(--color-secondary); 
+    stroke-opacity: 0.5;
+    stroke-width:0.5;
+}
+
+/* SCATTER end */
+
 
 
 
 /* MAP begin */
-.map-container {                                                                                                                                                                                
-    flex: 1;                                                                                                                                                                                    
-}                                                                                                                                                                                               
+.map-container {     
+    flex: 1;       
+}                   
 
 .country {   
     fill: var(--color-accent);   
@@ -225,6 +242,11 @@ section .wrapper {
 .axis .tick line {
       stroke: var(--color-secondary);
       stroke-width:1.3;
+  }
+.tick  text {
+    fill: var(--color-secondary);
+    font-size: 14px;
+    text-align:center;
   }
 
 /* MAP end*/

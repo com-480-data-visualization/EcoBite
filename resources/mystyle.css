@@ -216,7 +216,9 @@ section .wrapper {
     font-size: 14px;                          
     border-radius: 4px;                      
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);  
+      pointer-events: none;
 }                                            
+
 
 .map_bar {
     fill: var(--color-primary);

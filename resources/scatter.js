@@ -119,8 +119,14 @@ function draw_scatter(scatterChart_idx){
         .style("border-radius", "5px")
         .style("padding", "10px");
 
+
+    let tooltipHideTimeout; // shared variable to track tooltip delay
+
     //show info when is on
     const mouseover = function(event, d) {
+
+        clearTimeout(tooltipHideTimeout);
+
         tooltip.style("opacity", 1);
         const itemClass="item-" + d["Item"].replace(" ", "_").replace(",","-"); 
         //console.log(itemClass);
@@ -133,8 +139,6 @@ function draw_scatter(scatterChart_idx){
 
     };
 
-
-
     //where to show info
     const mousemove = function(event, d) {
         tooltip
@@ -145,10 +149,14 @@ function draw_scatter(scatterChart_idx){
 
     //hide info 
     const mouseleave = function(event, d) {
+
+        tooltipHideTimeout = setTimeout(() => {
         tooltip
             .transition()
             .duration(200)
             .style("opacity", 0);
+    }, 100); // Delay hiding by 100ms
+
         const itemClass="item-" + d["Item"].replace(" ", "_").replace(",","-"); 
         //console.log(itemClass);
         console.log(d);
@@ -183,8 +191,23 @@ function draw_scatter(scatterChart_idx){
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave);
 
+const delaunay = d3.Delaunay.from(data, d => x(+d["Production"]), d => y(+d["Bananas index (kg)"]));
+const voronoi = delaunay.voronoi([0, 0, widthScatter, heightScatter]);
 
-
+    g.append("g")
+  .attr("class", "voronoi")
+  .selectAll("path")
+  .data(data)
+  //.enter()
+  .join("path")
+  .attr("d", (d, i) => voronoi.renderCell(i))
+  .style("fill", "none")
+  .style("pointer-events", "all")
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave);
+  //.on("mouseover", function(event, d) {
+  //    showTooltip(d, event.pageX, event.pageY);
 
 
 

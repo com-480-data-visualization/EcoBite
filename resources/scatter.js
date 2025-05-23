@@ -9,8 +9,8 @@ function draw_scatter(scatterChart_idx){
     const svg = d3.select("#div_scatter_banana_faostat"+scatterChart_idx)
     .append("svg")
     .attr("id", "scatter_banana_faostat"+scatterChart_idx)
-    .attr("width", 550)
-    .attr("height", 600);
+    .attr("width", 1200)
+    .attr("height", 250);
 
     //a normal svg tag
     const svgScatter = d3.select("#scatter_banana_faostat"+scatterChart_idx);
@@ -18,7 +18,7 @@ function draw_scatter(scatterChart_idx){
     const heightScatter = +svgScatter.attr("height");
 
 
-    const margin = { top: 40, right: 40, bottom: 60, left: 60 };
+    const margin = { top: 5, right: 25, bottom: 50, left: 70 };
 
     const innerWidth = widthScatter - margin.left - margin.right;
     const innerHeight = heightScatter - margin.top - margin.bottom;
@@ -30,6 +30,7 @@ function draw_scatter(scatterChart_idx){
     let bananaIndex;
     //Relationship between the banana index used and the index on the div
     if (scatterChart_idx == 1){
+        bananaIndex = "Bananas index (kg)"
         bananaIndex = "Bananas index (kg)"
     } else if (scatterChart_idx == 2){
         bananaIndex = "Bananas index (1000 kcal)"
@@ -98,7 +99,7 @@ function draw_scatter(scatterChart_idx){
         .attr("y", heightScatter -10)
         .attr("class", "scatter_axis")
         .attr("text-anchor", "middle")
-        .text("Production [log scale]")
+        .text("Production")
 
     svgScatter.append("text")
         .attr("class", "scatter_axis")
@@ -106,7 +107,7 @@ function draw_scatter(scatterChart_idx){
         .attr("x", -heightScatter / 2)
         .attr("y", 15)
         .attr("text-anchor", "middle")
-        .text(bananaIndex + " [log scale]")
+        .text(bananaIndex )
 
     //tooltip to display info of each point 
     const tooltip = d3.select("#div_scatter_banana_faostat"+scatterChart_idx)

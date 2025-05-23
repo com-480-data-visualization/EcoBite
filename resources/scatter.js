@@ -191,7 +191,7 @@ function draw_scatter(scatterChart_idx){
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave);
 
-const delaunay = d3.Delaunay.from(data, d => x(+d["Production"]), d => y(+d["Bananas index (kg)"]));
+const delaunay = d3.Delaunay.from(data, d => x(+d["Production"]), d => y(+d[bananaIndex]));
 const voronoi = delaunay.voronoi([0, 0, widthScatter, heightScatter]);
 
     g.append("g")

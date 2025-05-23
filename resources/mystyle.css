@@ -5,12 +5,16 @@
     --color-bg: #f2f2f2;         
     --color-text: #333333;       
     --color-accent-rgb: 254, 186, 23;     
+    --font-title: 'Fredoka', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --color-highligh-green: #255F38;
               }
 
 
 body {
-    font-family: 'Inter' sans-serif;
-    margin: 0px;
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
     /*
     margin: 20px;
     color: #FF0000;
@@ -28,9 +32,86 @@ p{
 
 html{
     scroll-behavior:smooth;
+    margin: 0;
+    padding: 0;
 }
 
+
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 8vw;
+    min-height: 100vh;
+}
+
+.hero_bg{
+    background-color: #c9f2d1 ;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+
+}
+
+
+.hero-text h1 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--color-highligh-green) ;
+    margin: 0;
+}
+
+.hero-text h2 {
+    font-size: 1.5rem;
+    color: var(--color-highligh-green);
+    margin-top: 0.5rem;
+}
+
+.hero-text p {
+    font-size: 1rem;
+    margin-top: 1rem;
+    max-width: 400px;
+}
+
+
+.hero-image {
+    position:relative;
+    width: 400px;
+    height: 400px;
+}
+
+
+.planet {
+      position: relative;
+        width: 100%;
+          height: 100%;
+      }
+.fish   { 
+    bottom: 5px; 
+    left: 10px; 
+    animation-delay: 3s; 
+    position:absolute;
+}
+
+.cow    { 
+    top: 5px;  
+    left: -20px; 
+    animation-delay: 1.5s; 
+    position:absolute;
+}
+
+.plant  { 
+    top: 40px; 
+    right: -40px; 
+    animation-delay: 4.5s; 
+    position:absolute;
+}
+
+
+
 .main_title {
+    font-family: 'Inter' Work Sans;
     color: var(--color-primary);
     font-weight: bold;
     font-size: 36px;

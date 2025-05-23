@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Inter&display=swap" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js"></script>                                                                                                                                           
     <script src="https://unpkg.com/topojson@3"></script>                                                                                                                                            
     <script src="resources/my_codes.js"> </script>                                                                                                                                                            
@@ -17,7 +18,6 @@
 </head>
 <body class="bg-gray-100 p-8">
     
-<div class="container">
 
     <div class="scroll-indicator">
         <a href="#hero" class="active" data-section="About"></a>
@@ -26,10 +26,30 @@
         <a href="#production_vs_bananas_index" data-section="Production vs bananas"></a>
     </div>
 
-    <section id='hero'>
-        <h1 class="main_title">Food Production and Environmental Impact</h1>
-    </section>
+<section id='hero' class="hero_bg">
 
+    <div class="container hero">
+
+        <div class="hero-text">
+            <h1>Ecobite</h1>
+            <h2>Food production &amp; environmental impact</h2>
+            <p>Explore the hidden cost of every bite. Compare, scroll, and go bananas.</p>
+        </div>
+
+        <div class="hero-image">
+            <div class="planet">
+                 <img src="resources/images/planet.svg" alt="Bitten Planet" />
+                 <img src="resources/images/fish.svg" class="orbit fish" alt="Fish Icon" />
+                 <img src="resources/images/cow.svg" class="orbit cow" alt="Cow Icon" />
+                 <img src="resources/images/plant.svg" class="orbit plant" alt="Cow Icon" />
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<div class="container">
     <section id='food_comparison'>
         <div class="container capsule " style="margin:10px">    
             <div id="food-comparison" class="mb-8">

@@ -21,6 +21,9 @@ body {
 p{
     color: var(--color-text);
     font-size: 18px;
+    padding-top:15px;
+    padding-bottom:5px;
+    display: inline;
 }
 
 html{
@@ -165,6 +168,31 @@ section .wrapper {
     transform: translate(0, -50%);
 }
 
+.tooltip_on_text{
+    position:relative;
+    display: inline-block;
+    border-bottom: 1px solid var(--color-primary);
+    color:var(--color-primary);
+    font-weight: bold;
+}
+
+.tooltip_on_text .text_tooltip{
+    visibility: hidden;
+    width: 470px;
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+    text-align: justify;
+    border-radius: 6px;
+    padding: 5px 15px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip_on_text:hover .text_tooltip{
+    visibility: visible;
+}
 
 
 /* SCATTER begin */

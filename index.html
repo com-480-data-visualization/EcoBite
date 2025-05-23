@@ -99,9 +99,20 @@
         <div class="container capsule" style="margin:10px">
             <h2 class="section_title">Food production vs bananas index</h2>
             <div id="food-comparison" class="mb-8">
-                <p class="mb-4">To compare the production of some foods against its bananas 
-                index per weight, kilocalorie and protein. You can see the information of each point by 
-                putting your mouse over them. The red dot indicates bananas.</p>
+                <p class="mb-4">
+                To compare the production of some foods against its 
+                <div class="tooltip_on_text">
+                    bananas index 
+                    <span class="text_tooltip">
+                            A simple way to measure food impact.
+                            </br>
+                            If a steak has a banana index of 10, eating 1 kg of steak has the same 
+                            environmental impact as eating 10 kg of bananas.
+                    </span>
+                </div>
+                per weight, kilocalorie and protein. You can see the information of each point by 
+                putting your mouse over them. The red dot indicates bananas.
+                </p>
                                                            
                 <!-- each div_scatter_banana_faostat will contain one scatter plot, based on its index.-->
                 <!-- the relationship between index and chart is defined in the function draw_scatter, on scatter.js-->

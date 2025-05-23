@@ -13,9 +13,14 @@ body {
     margin: 0px;
     /*
     margin: 20px;
+    color: #FF0000;
     */
     background-color: var(--color-bg);
+}
+
+p{
     color: var(--color-text);
+    font-size: 18px;
 }
 
 html{
@@ -25,14 +30,14 @@ html{
 .main_title {
     color: var(--color-primary);
     font-weight: bold;
-    font-size: 31px;
+    font-size: 36px;
     text-align:center;
 }
 
 .section_title {
     color: var(--color-primary);
     font-weight: bold;
-    font-size: 28px;
+    font-size: 30px;
     text-align:left;
 }
 
@@ -49,7 +54,7 @@ html{
 .capsule {
     padding:10px 10px;
     border-radius: var(--radius-lg); 
-    background-color: #ffffff;
+    background-color: var(--color-bg);
 }
 
 .row {
@@ -87,6 +92,8 @@ svg {
     flex: 1;         
     display: flex;  
     flex-direction: column;        
+    text-align: center;
+    margin:auto;
 }                                
 
 section{
@@ -94,6 +101,13 @@ section{
 }
 
 section .wrapper {
+}
+
+.info_chart{
+    position: absolute;
+    padding-top:150px;
+    font-weight: bold;
+    font-size:18px
 }
 
 .scroll-indicator{
@@ -155,9 +169,23 @@ section .wrapper {
 
 /* SCATTER begin */
 
+.scatter_title{
+    fill: var(--color-primary);
+    font-size: 20px;
+    text-align:center;
+    font-weight: bold;
+}
+
+.scatter_title_box{
+    fill: var(--color-bg);
+    stroke: var(--color-secondary); 
+    stroke-width:2;
+    stroke-opacity: 1;
+}
+
 .scatter_axis {
     fill: var(--color-secondary);
-    font-size: 14px;
+    font-size: 16px;
     text-align:center;
     font-weight: bold;
 }
@@ -166,11 +194,17 @@ section .wrapper {
     stroke: var(--color-secondary); 
     stroke-opacity: 0.5;
     stroke-width:0.5;
+    color: var(--color-secondary);
 }
+
 
 /* SCATTER end */
 
 
+.map_info{
+    color: var(--color-secondary);
+    font-size: 20px;
+}
 
 
 /* MAP begin */

@@ -1,11 +1,13 @@
 //Draw bar chart
 function drawBarChart(svgSelector, data, selectedYear) {
+    d3.select("#placeholder"+svgSelector.replace("#","_")).remove();
     const svg = d3.select(svgSelector)
                 .attr("class", "map_bar_bg");
     svg.selectAll("*").remove();
 
     const width = +svg.attr("width");
     const height = +svg.attr("height");
+
     if (data.length > 0) {
             svg.append("text")
                 .attr("x", width / 2)

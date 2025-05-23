@@ -34,7 +34,7 @@
         <div class="container capsule " style="margin:10px">    
             <div id="food-comparison" class="mb-8">
                 <h2 class="section_title">Food Comparison Chart</h2>
-                <p class="text-gray-700 mb-4">This chart will visualize the environmental impact of different foods.</p>
+                <p class=" mb-4">This chart will visualize the environmental impact of different foods.</p>
                 <svg id="food-comparison-chart"></svg>
             </div>
         </div>
@@ -60,14 +60,14 @@
                             <!-- Place here the world map -->  
                             <svg id="map" width="600" height="300"></svg>    
 
-                            <label for="year-slider" class="row" style="font-size:18px;font-weight:bold">Select Year:</label> 
+                            <label for="year-slider" class="row map_info" style="font-weight:bold">Select Year:</label> 
 
                             <!-- year selector -->                       
                             <div class="row">
                                 <input type="range" class="slider" id="year-slider" min="1962" max="2023" step="1" value="2023" />   
                             </div>
 
-                            <span id="year-label" class="row" style="font-size:18px">2023</span>                                                                   
+                            <span id="year-label" class="row map_info" >2023</span>                                                                   
 
                     </div>         
 
@@ -78,10 +78,12 @@
                         <div class="chart-container">  
                             <!-- 1st bar chart -->    
                             <svg id="chart1" width="530" height="300"></svg>   
+                            <p id="placeholder_chart1" class="info_chart">Select a country to see data</p>
                         </div>                                                
                         <div class="chart-container">                        
                             <!-- 2nd bar chart -->                          
                             <svg id="chart2" width="530" height="300"></svg>   
+                            <p id="placeholder_chart2" class="info_chart">Select a country to see data</p>
                         </div>                                                
                     </div>         
 
@@ -97,20 +99,20 @@
         <div class="container capsule" style="margin:10px">
             <h2 class="section_title">Food production vs bananas index</h2>
             <div id="food-comparison" class="mb-8">
-                <p class="text-gray-700 mb-4">To compare the production of some foods against its bananas 
+                <p class="mb-4">To compare the production of some foods against its bananas 
                 index per weight, kilocalorie and protein. You can see the information of each point by 
                 putting your mouse over them. The red dot indicates bananas.</p>
                                                            
                 <!-- each div_scatter_banana_faostat will contain one scatter plot, based on its index.-->
                 <!-- the relationship between index and chart is defined in the function draw_scatter, on scatter.js-->
                 <div class="row">       
-                    <div id="div_scatter_banana_faostat1"  style="margin:0; " style="position: relative;"></div>                                                   
-                </div>                                                   
+                    <div id="div_scatter_banana_faostat1"   style="margin:0; " style="position: relative;"></div>                                                   
+                </div>                                    
                 <div class="row">       
-                    <div id="div_scatter_banana_faostat2"  style="margin:0; " style="position: relative;"></div>                                                   
-                </div>                                                   
+                    <div id="div_scatter_banana_faostat2"   style="margin:0; " style="position: relative;"></div>                                                   
+                </div>                                    
                 <div class="row" >      
-                    <div id="div_scatter_banana_faostat3"  style="margin:0; " style="position: relative;"></div>                                                   
+                    <div id="div_scatter_banana_faostat3"   style="margin:0; " style="position: relative;"></div>                                                   
                 </div> 
 
             </div>

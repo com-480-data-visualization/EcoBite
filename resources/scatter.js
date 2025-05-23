@@ -63,7 +63,7 @@ function draw_scatter(scatterChart_idx){
 
     // Horizontal grid
     g.append("g")
-        .attr("class", "grid grid-horizontal")
+        .attr("class", "grid grid-horizontal scatter_grid")
         .call(
             d3.axisLeft(y)
             .tickSize(-innerWidth) // ← extend ticks across the width
@@ -74,7 +74,7 @@ function draw_scatter(scatterChart_idx){
 
     // Vertical grid
     g.append("g")
-        .attr("class", "grid grid-vertical")
+        .attr("class", "grid grid-vertical scatter_grid")
         .attr("transform", `translate(0, ${innerHeight})`)
         .call(
             d3.axisBottom(x)
@@ -104,10 +104,34 @@ function draw_scatter(scatterChart_idx){
     svgScatter.append("text")
         .attr("class", "scatter_axis")
         .attr("transform", "rotate(-90)")
-        .attr("x", -heightScatter / 2)
-        .attr("y", 15)
+        .attr("x", (-heightScatter / 2)+10)
+        .attr("y", 20)
         .attr("text-anchor", "middle")
-        .text(bananaIndex )
+        .text(bananaIndex.slice(0,13) )
+
+    // Title
+    const myTitle = bananaIndex.slice(13).replace("(","").replace(")","")
+
+    const titleGroup = svgScatter.append("g")
+        .attr("class", "scatter_title");
+
+    const title = svgScatter.append("text")
+        .attr("x", 150)
+        .attr("y", 40 )
+        .attr("class", "scatter_title")
+        .attr("text-anchor", "middle")
+        .text( myTitle );
+
+    //Get bounding box of the text
+    const bbox = title.node().getBBox();
+    
+    // Add a rect behind the text
+    titleGroup.insert("rect", "text") // insert before the text element
+        .attr("x", bbox.x - 4)  // add some padding
+        .attr("y", bbox.y - 2)
+        .attr("width", bbox.width + 8)
+        .attr("height", bbox.height + 4)
+        .attr("class", "scatter_title_box");
 
     //tooltip to display info of each point 
     const tooltip = d3.select("#div_scatter_banana_faostat"+scatterChart_idx)

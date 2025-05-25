@@ -83,29 +83,121 @@ html{
 
 
 .planet {
-      position: relative;
-        width: 100%;
-          height: 100%;
+      position: absolute;
+        width: 400px;
+          height: 400px;
       }
 .fish   { 
-    bottom: 5px; 
+    bottom: 8px; 
     left: 10px; 
     animation-delay: 3s; 
     position:absolute;
+    width:80px;
+    height: 50px;
 }
 
 .cow    { 
-    top: 5px;  
-    left: -20px; 
+    top: 2px;  
+    left: 11px; 
     animation-delay: 1.5s; 
     position:absolute;
+    width:75px;
+    height: 75px;
 }
 
 .plant  { 
-    top: 40px; 
-    right: -40px; 
+    top: 20px; 
+    right: 1px; 
     animation-delay: 4.5s; 
     position:absolute;
+    width:50px;
+    height: 80px;
+}
+
+.banana { 
+    bottom: 50px; 
+    right: -20px; 
+    animation-delay: 0s; 
+    position:absolute;
+    width:130px;
+    height: 130px;
+    transform: rotate(20deg);
+}
+
+.scatter-hint {
+  position: absolute;
+  bottom: -15px;
+  right: 50px;
+  opacity: 0.4;
+}
+
+
+.main_stroke{
+    stroke: var(--color-primary);
+    stroke-width: 1;
+    fill: none;
+}
+
+
+.main_fill{
+    stroke: var(--color-primary);
+}
+
+.circle-yellow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-accent); /* Yellow pulse */
+  border-radius: 50%;
+  transform-origin: center center;
+  opacity:0.5;
+}
+
+.circle-1 {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-primary); /* Yellow pulse */
+  border-radius: 50%;
+  transform-origin: center center;
+  opacity:0.5;
+}
+.circle-2 {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: var(--color-primary); /* Yellow pulse */
+  border-radius: 50%;
+  transform-origin: center center;
+  opacity:0.5;
+}
+
+.pulse-1{
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.pulse-2{
+  animation: breathe_out 3s ease-in-out infinite;
+}
+.pulse-3{
+  animation: breathe_in 5s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+@keyframes breathe_out {
+  0%   { transform: scale(2); }
+  50%  { transform: scale(1.5); }
+  100% { transform: scale(2); }
+}
+
+@keyframes breathe_in {
+  0%   { transform: scale(0.5); }
+  50%  { transform: scale(2); }
+  100% { transform: scale(0.5); }
 }
 
 

@@ -300,6 +300,21 @@ svg {
     margin:auto;
 }                                
 
+#food-comparison .filter-container {
+    position: relative;
+}
+
+.filter-container .variable-selector {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
 section{
     min-height: 70vh;
 }

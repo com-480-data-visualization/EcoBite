@@ -7,15 +7,17 @@ window.addEventListener("bananaDataLoaded", () => {
     // Create a container for filters
     const filterContainer = d3.select("#food-comparison")
         .append("div")
-        .attr("class", "filter-container")
-        .style("margin-bottom", "20px");
+        .attr("class", "filter-container");
 
-    // Dropdown for selecting the variable
-    filterContainer.append("label")
+    // Move variable selector to its own div for positioning
+    const variableSelector = filterContainer.append("div")
+        .attr("class", "variable-selector");
+
+    variableSelector.append("label")
         .text("Select Variable: ")
         .style("margin-right", "10px");
 
-    const variableDropdown = filterContainer.append("select")
+    const variableDropdown = variableSelector.append("select")
         .attr("id", "variable-dropdown")
         .on("change", updateChart);
 
@@ -138,7 +140,7 @@ window.addEventListener("bananaDataLoaded", () => {
         const chartContainer = d3.select("#food-comparison-chart");
         const containerWidth = document.getElementById("food-comparison").offsetWidth;
         const containerHeight = 300;
-        const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+        const margin = { top: 20, right: 30, bottom: 60, left: 60 }; // bottom was 30, now 60
         const width = containerWidth - margin.left - margin.right;
         const height = containerHeight - margin.top - margin.bottom;
 
@@ -159,15 +161,36 @@ window.addEventListener("bananaDataLoaded", () => {
             .rangeRound([height, 0]);
 
         g.append("g")
+            .attr("class", "axis")
             .attr("transform", `translate(0,${height})`)
             .call(d3.axisBottom(x))
             .selectAll("text")
-            .style("font-size", "12px");
+            .style("font-size", "14px")
+            .style("fill", "#4E1F00"); // Match scatter axis color
 
         g.append("g")
+            .attr("class", "axis")
             .call(d3.axisLeft(y))
             .selectAll("text")
-            .style("font-size", "12px");
+            .style("font-size", "14px")
+            .style("fill", "#4E1F00"); // Match scatter axis color
+
+        // X axis label
+        g.append("text")
+            .attr("class", "scatter_axis")
+            .attr("x", width / 2)
+            .attr("y", height + margin.bottom) // moved lower
+            .attr("text-anchor", "middle")
+            .text("Food");
+
+        // Y axis label
+        g.append("text")
+            .attr("class", "scatter_axis")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -height / 2)
+            .attr("y", -margin.left + 18)
+            .attr("text-anchor", "middle")
+            .text(selectedVariable === "emissions_kg" ? "Emissions (kg CO₂e)" : "Land Use (m²/yr)");
 
         g.selectAll(".bar")
             .data(foodData)

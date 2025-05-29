@@ -26,42 +26,105 @@ window.addEventListener("bananaDataLoaded", () => {
         .text(d => d)
         .attr("value", d => d);
 
-    // Dropdown checklist for selecting items
-    filterContainer.append("label")
-        .text("Select Items: ")
-        .style("margin-left", "20px")
+    // --- Move filter label and clear button below variable selector ---
+    const filterRow = filterContainer.append("div")
+        .style("margin-top", "16px")
+        .style("margin-bottom", "4px");
+
+    filterRow.append("label")
+        .text("Filter food options: ")
         .style("margin-right", "10px");
 
-    const uniqueItems = [...new Set(window.bananaData.map(d => d.entity))]; // Get unique entities
+    // Clear All button
+    const clearBtn = filterRow.append("button")
+        .text("Clear All")
+        .attr("type", "button")
+        .style("margin-left", "10px")
+        .on("click", () => {
+            selectedItems.clear();
+            searchInput.property("value", "");
+            renderChecklist([]);
+            updateChart();
+        });
 
-    const itemDropdown = filterContainer.append("select")
-        .attr("id", "item-dropdown")
-        .attr("multiple", true) // Allow multiple selections
-        .style("width", "200px")
-        .style("height", "100px") // Adjust height to show multiple options
-        .on("change", updateChart);
+    // --- Search bar and dropdown below filter row ---
+    // Search bar
+    const searchInput = filterContainer.append("input")
+        .attr("type", "text")
+        .attr("placeholder", "Search foods...")
+        .attr("id", "food-search")
+        .style("margin-right", "10px")
+        .on("input", filterFoodList);
 
-    itemDropdown.selectAll("option")
-        .data(uniqueItems)
-        .enter()
-        .append("option")
-        .text(d => d)
-        .attr("value", d => d);
+    // Dropdown checklist container using <details> (placed directly after search bar)
+    const details = filterContainer.append("details")
+        .style("display", "block")
+        .style("margin-top", "4px")
+        .attr("id", "food-dropdown");
+
+    details.append("summary")
+        .text("See food options")
+        .style("cursor", "pointer")
+        .style("font-size", "14px")
+        .style("outline", "none");
+
+    // Checklist container inside the dropdown, scrollable
+    const checklistContainer = details.append("div")
+        .attr("id", "item-checklist")
+        .style("padding", "8px 0")
+        .style("max-height", "200px") // Set max height for scroll
+        .style("overflow-y", "auto");
+
+    const uniqueItems = [...new Set(window.bananaData.map(d => d.entity))];
+    let selectedItems = new Set(); // Start with nothing selected
+
+    // Render checklist (initially empty)
+    function renderChecklist(filteredItems) {
+        checklistContainer.html(""); // Clear previous
+        filteredItems.forEach(item => {
+            const label = checklistContainer.append("label")
+                .style("margin-right", "10px")
+                .style("font-size", "14px")
+                .style("display", "block");
+            label.append("input")
+                .attr("type", "checkbox")
+                .attr("class", "item-checkbox")
+                .attr("value", item)
+                .property("checked", selectedItems.has(item))
+                .on("change", function() {
+                    if (this.checked) {
+                        selectedItems.add(item);
+                    } else {
+                        selectedItems.delete(item);
+                    }
+                    updateChart();
+                });
+            label.append("span").text(item);
+        });
+    }
+
+    // Filter checklist as you type
+    function filterFoodList() {
+        const query = searchInput.property("value").toLowerCase();
+        if (query.length === 0) {
+            renderChecklist([]); // Show nothing if search is empty
+        } else {
+            const filtered = uniqueItems.filter(item => item.toLowerCase().includes(query));
+            renderChecklist(filtered);
+        }
+    }
+
+    // Initial render: show nothing
+    renderChecklist([]);
 
     // Initial chart rendering
     updateChart();
 
     function updateChart() {
         const selectedVariable = d3.select("#variable-dropdown").property("value");
-
-        // Get selected items from the dropdown
-        const selectedItems = Array.from(
-            d3.select("#item-dropdown").node().selectedOptions
-        ).map(option => option.value);
-
-        // Filter the data for the selected items
+        // Use selectedItems set
         const foodData = window.bananaData
-            .filter(d => selectedItems.includes(d.entity)) // Filter by selected items
+            .filter(d => selectedItems.has(d.entity))
             .map(d => ({
                 food: d.entity,
                 value: +d[selectedVariable] // Convert the selected variable to a number

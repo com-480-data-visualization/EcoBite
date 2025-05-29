@@ -67,7 +67,7 @@ window.addEventListener('wheel', function(e) {
     if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
     // Only respond to significant scrolls
-    if (Math.abs(e.deltaY) < 10) return;
+    if (Math.abs(e.deltaY) < 50) return;
 
     if (isScrolling) {
         e.preventDefault();
@@ -89,5 +89,5 @@ window.addEventListener('wheel', function(e) {
     } else if (e.deltaY < 0 && current > 0) { // Scroll up
         sections[current - 1].scrollIntoView({behavior: "smooth"});
     }
-    setTimeout(() => { isScrolling = false; }, 900);
+    setTimeout(() => { isScrolling = false; }, 800);
 }, { passive: false });

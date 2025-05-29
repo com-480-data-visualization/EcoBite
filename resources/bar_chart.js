@@ -200,6 +200,6 @@ window.addEventListener("bananaDataLoaded", () => {
             .attr("y", d => y(d.value))
             .attr("width", x.bandwidth())
             .attr("height", d => height - y(d.value))
-            .attr("fill", "steelblue");
+            .attr("fill", "#008112"); // Set bar color to green as in map.js
     }
 });

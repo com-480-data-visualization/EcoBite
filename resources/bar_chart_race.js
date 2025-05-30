@@ -113,7 +113,7 @@ window.addEventListener("productionDataLoaded", () => {
 
   // Scales
   const x = d3.scaleLinear()
-    .domain([0, 1])
+    .domain([0, d3.max(yearSlice[0].data, d => d.value) * 1.1])
     .range([0, width]);
 
   const y = d3.scaleLinear()

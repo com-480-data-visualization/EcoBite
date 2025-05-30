@@ -488,3 +488,56 @@ section .wrapper {
   }
 
 /* MAP end*/
+
+/* BAR CHART RACE begin */
+.btn {
+    background-color: var(--color-primary);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-highligh-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#bar-chart-race {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#bar-chart-race svg {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.bar {
+    transition: all 0.3s ease;
+}
+
+.bar:hover {
+    opacity: 1 !important;
+    filter: brightness(1.1);
+}
+
+.label, .valueLabel {
+    font-family: var(--font-body);
+}
+
+.yearText {
+    font-family: var(--font-title);
+}
+/* BAR CHART RACE end */

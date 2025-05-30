@@ -23,19 +23,19 @@ window.addEventListener("productionDataLoaded", () => {
     .append("svg")
     .attr("width", containerWidth)
     .attr("height", containerHeight)
-    .style("background", "#ffffff");
+    .style("background", "#fff")
+    .style("border", "1px solid var(--color-secondary)")
+    .style("border-radius", "5px");
 
   const g = svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Title
   const title = svg.append("text")
-    .attr("class", "title")
+    .attr("class", "scatter_title")
     .attr("x", containerWidth / 2)
     .attr("y", 40)
     .style("text-anchor", "middle")
-    .style("font-size", "28px")
-    .style("font-weight", "bold")
     .text("Top Food Producers by Year");
 
   // Year label
@@ -46,13 +46,31 @@ window.addEventListener("productionDataLoaded", () => {
     .style("text-anchor", "end")
     .style("font-size", "64px")
     .style("font-weight", "bold")
-    .style("opacity", 0.3)
+    .style("fill", "var(--color-accent)")
+    .style("opacity", 0.5)
     .text(config.year);
 
   // Process data
   let yearSlice = [];
   const foodColors = {};
-  const colorScale = d3.scaleOrdinal(d3.schemeSet3);
+
+  // Use custom color palette matching the theme
+  const customColors = [
+    "var(--color-primary)",      // Green
+    "var(--color-accent)",       // Yellow
+    "var(--color-secondary)",    // Brown
+    "#4E8B5F",                   // Medium Green
+    "#FFC947",                   // Light Yellow
+    "#6B4226",                   // Medium Brown
+    "#2E7D32",                   // Dark Green
+    "#FFD770",                   // Pale Yellow
+    "#8B6B4E",                   // Light Brown
+    "#1B5E20",                   // Very Dark Green
+    "#FFE599",                   // Very Light Yellow
+    "#5D4037"                    // Dark Brown
+  ];
+
+  let colorIndex = 0;
 
   // Prepare data for each year
   for (let year = 1962; year <= 2023; year++) {
@@ -87,7 +105,8 @@ window.addEventListener("productionDataLoaded", () => {
     // Assign colors to foods
     sortedData.forEach(d => {
       if (!foodColors[d.food]) {
-        foodColors[d.food] = colorScale(d.food);
+        foodColors[d.food] = customColors[colorIndex % customColors.length];
+        colorIndex++;
       }
     });
   }
@@ -107,10 +126,18 @@ window.addEventListener("productionDataLoaded", () => {
     .tickFormat(d3.format(".2s"))
     .tickSizeOuter(0);
 
-  g.append("g")
-    .attr("class", "x-axis")
+  const xAxisG = g.append("g")
+    .attr("class", "x-axis axis")
     .attr("transform", `translate(0,${height})`)
     .call(xAxis);
+
+  // Add axis label
+  g.append("text")
+    .attr("class", "scatter_axis")
+    .attr("x", width / 2)
+    .attr("y", height + 40)
+    .style("text-anchor", "middle")
+    .text("Production (tons)");
 
   // Initialize bars
   g.selectAll(".bar")
@@ -122,7 +149,10 @@ window.addEventListener("productionDataLoaded", () => {
     .attr("y", d => y(d.rank) + config.barPadding / 2)
     .attr("width", d => x(d.value))
     .attr("height", y(1) - y(0) - config.barPadding)
-    .style("fill", d => foodColors[d.food]);
+    .attr("rx", 4)
+    .attr("ry", 4)
+    .style("fill", d => foodColors[d.food])
+    .style("opacity", 0.8);
 
   // Initialize labels
   g.selectAll(".label")
@@ -135,6 +165,7 @@ window.addEventListener("productionDataLoaded", () => {
     .style("text-anchor", "end")
     .style("font-weight", "bold")
     .style("font-size", "14px")
+    .style("fill", "var(--color-secondary)")
     .text(d => d.food);
 
   // Initialize value labels
@@ -146,6 +177,7 @@ window.addEventListener("productionDataLoaded", () => {
     .attr("x", d => x(d.value) + 5)
     .attr("y", d => y(d.rank) + (y(1) - y(0)) / 2 + 1)
     .style("font-size", "13px")
+    .style("fill", "var(--color-secondary)")
     .text(d => d3.format(",.0f")(d.value));
 
   // Animation function
@@ -177,7 +209,10 @@ window.addEventListener("productionDataLoaded", () => {
       .attr("y", d => y(config.top_n + 1))
       .attr("width", 0)
       .attr("height", y(1) - y(0) - config.barPadding)
+      .attr("rx", 4)
+      .attr("ry", 4)
       .style("fill", d => foodColors[d.food])
+      .style("opacity", 0.8)
       .transition()
       .duration(config.tickDuration)
       .ease(d3.easeLinear)
@@ -210,6 +245,7 @@ window.addEventListener("productionDataLoaded", () => {
       .style("text-anchor", "end")
       .style("font-weight", "bold")
       .style("font-size", "14px")
+      .style("fill", "var(--color-secondary)")
       .text(d => d.food)
       .transition()
       .duration(config.tickDuration)
@@ -238,6 +274,7 @@ window.addEventListener("productionDataLoaded", () => {
       .attr("x", d => x(d.value) + 5)
       .attr("y", y(config.top_n + 1))
       .style("font-size", "13px")
+      .style("fill", "var(--color-secondary)")
       .text(d => d3.format(",.0f")(d.value))
       .transition()
       .duration(config.tickDuration)

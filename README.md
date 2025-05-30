@@ -55,6 +55,6 @@ Our inspiration centered around the original article from the Economist and a fe
 
 ## Milestone 3
 
-- Screencast here
+- Screencast [here](ecobite.mp4)
 - Process book [here](Process%20Book.pdf)
 

@@ -12,6 +12,8 @@
 
 
 body {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
     font-family: var(--font-body);
     margin: 0;
     padding: 0;
@@ -31,11 +33,11 @@ p{
 }
 
 html{
+    height: 100%;
     scroll-behavior:smooth;
     margin: 0;
     padding: 0;
 }
-
 
 
 .hero {
@@ -228,6 +230,10 @@ html{
 }
 
 .capsule {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding:10px 10px;
     border-radius: var(--radius-lg); 
     background-color: var(--color-bg);
@@ -264,6 +270,34 @@ svg {
 }
 */
 
+.filter-container label {
+    font-weight: bold;
+    color: #264653;
+}
+.filter-container button {
+    background: #e76f51;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.filter-container button:hover {
+    background: #b63c1a;
+}
+#variable-dropdown, #item-dropdown {
+    border: 2px solid #2a9d8f;
+    border-radius: 4px;
+    padding: 4px;
+    background: #f4f4f4;
+    color: #264653;
+}
+#item-dropdown option:checked {
+    background: #e9c46a;
+    color: #264653;
+}
+
 .charts-container {   
     flex: 1;         
     display: flex;  
@@ -272,8 +306,27 @@ svg {
     margin:auto;
 }                                
 
+#food-comparison .filter-container {
+    position: relative;
+}
+
+.filter-container .variable-selector {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
 section{
-    min-height: 70vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 section .wrapper {

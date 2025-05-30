@@ -8,7 +8,7 @@
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
-## Milestone 1 (21st March, 5pm)
+## Milestone 1
 
 ### Dataset
 
@@ -43,20 +43,7 @@ To the extent of our knowledge, the two datasets we are examining have not been 
 Our inspiration centered around the original article from the Economist and a few older projects, namely [the exploration of different types of coffee beans](https://com-480-data-visualization.github.io/coffee_BEaN/) and [global food balances](https://com-480-data-visualization.github.io/datavis-project-2022-datagang/src/). Both of these projects were centered around agricultural products and global impact. We initially wanted to combine data on recipes from the [MealDB](https://www.themealdb.com/api.php) to examine the impact of individual dishes, but shifted to a larger view on the world.
 
 
-## Milestone 2 (18th April, 5pm)
+## Milestone 2 
 
-**10% of the final grade**
-
-[Functinoal prototype](https://com-480-data-visualization.github.io/EcoBite/)
-
-
-## Milestone 3 (30th May, 5pm)
-
-**80% of the final grade**
-
-
-## Late policy
-
-- < 24h: 80% of the grade for the milestone
-- < 48h: 70% of the grade for the milestone
+[Functional prototype](https://com-480-data-visualization.github.io/EcoBite/)
 

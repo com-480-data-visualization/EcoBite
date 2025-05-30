@@ -8,6 +8,9 @@ d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/EcoBite/mas
   .then(data => {
     window.productionData = data;
     console.log("Clean FAOSTAT dataset loaded:", data.length, "rows");
+
+    const event = new Event("productionDataLoaded");
+    window.dispatchEvent(event);
   })
   .catch(error => {
     console.error("Failed to load clean FAOSTAT dataset:", error);

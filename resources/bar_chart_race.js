@@ -1,112 +1,310 @@
+// Wait for the production data to be loaded
 window.addEventListener("productionDataLoaded", () => {
-  const raw = window.productionData;
-  // Convert wide to long
-  const parsed = raw.flatMap(d =>
-    Object.entries(d)
-      .filter(([key]) => key.startsWith('Y'))
-      .map(([key, val]) => ({
-        item: d.Item,
-        year: +key.slice(1),
-        value: val === '' ? 0 : +val
-      }))
-  );
-  // Group by year
-  const dataByYear = d3.group(parsed, d => d.year);
-  const years = Array.from(dataByYear.keys()).sort((a, b) => a - b);
+  console.log("Starting bar chart race with production data");
 
-  // Dimensions
-  const margin = { top: 50, right: 150, bottom: 50, left: 150 };
-  const width = 800 - margin.left - margin.right;
-  const height = 600 - margin.top - margin.bottom;
+  // Configuration
+  const margin = { top: 80, right: 120, bottom: 50, left: 250 };
+  const containerWidth = 1200;
+  const containerHeight = 600;
 
-  // SVG container
+  const config = {
+    top_n: 12,
+    tickDuration: 500,
+    year: 1962,
+    endYear: 2023,
+    barPadding: (containerHeight - (margin.top + margin.bottom)) / (12 * 5),
+    margin: margin
+  };
+  const width = containerWidth - margin.left - margin.right;
+  const height = containerHeight - margin.top - margin.bottom;
+
+  // Create SVG
   const svg = d3.select("#bar-chart-race")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
+    .attr("width", containerWidth)
+    .attr("height", containerHeight)
+    .style("background", "#ffffff");
+
+  const g = svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // Scales and axes
-  const x = d3.scaleLinear().range([0, width]);
-  const y = d3.scaleBand().range([0, height]).padding(0.1);
-  const xAxis = svg.append("g").attr("transform", `translate(0,${height})`);
-  const yAxis = svg.append("g");
+  // Title
+  const title = svg.append("text")
+    .attr("class", "title")
+    .attr("x", containerWidth / 2)
+    .attr("y", 40)
+    .style("text-anchor", "middle")
+    .style("font-size", "28px")
+    .style("font-weight", "bold")
+    .text("Top Food Producers by Year");
 
-  // Update function
-  function update(year) {
-    const yearData = Array.from(dataByYear.get(year) || [])
+  // Year label
+  const yearText = svg.append("text")
+    .attr("class", "yearText")
+    .attr("x", width - margin.right)
+    .attr("y", height - 25)
+    .style("text-anchor", "end")
+    .style("font-size", "64px")
+    .style("font-weight", "bold")
+    .style("opacity", 0.3)
+    .text(config.year);
+
+  // Process data
+  let yearSlice = [];
+  const foodColors = {};
+  const colorScale = d3.scaleOrdinal(d3.schemeSet3);
+
+  // Prepare data for each year
+  for (let year = 1962; year <= 2023; year++) {
+    const yearCol = `Y${year}`;
+    const yearData = window.productionData
+      .filter(d => d[yearCol] && !isNaN(d[yearCol]) && d[yearCol] > 0)
+      .map(d => ({
+        country: d.Area,
+        food: d.Item,
+        value: +d[yearCol],
+        year: year,
+        id: d.Area + "_" + d.Item
+      }));
+
+    // Group by food item and sum values
+    const foodTotals = d3.rollup(yearData,
+      v => d3.sum(v, d => d.value),
+      d => d.food
+    );
+
+    // Convert to array and sort
+    const sortedData = Array.from(foodTotals, ([food, value]) => ({ food, value }))
       .sort((a, b) => b.value - a.value)
-      .slice(0, 10);
+      .slice(0, config.top_n)
+      .map((d, i) => ({ ...d, rank: i }));
 
-    x.domain([0, d3.max(yearData, d => d.value) || 0]);
-    y.domain(yearData.map(d => d.item));
+    yearSlice.push({
+      year: year,
+      data: sortedData
+    });
 
-    xAxis.transition().duration(1000).call(d3.axisBottom(x).ticks(5));
-    yAxis.transition().duration(1000).call(d3.axisLeft(y));
+    // Assign colors to foods
+    sortedData.forEach(d => {
+      if (!foodColors[d.food]) {
+        foodColors[d.food] = colorScale(d.food);
+      }
+    });
+  }
 
-    // Bars
-    const bars = svg.selectAll(".bar").data(yearData, d => d.item);
-    bars.exit().transition().duration(1000).attr("width", 0).remove();
-    const barsEnter = bars.enter()
+  // Scales
+  const x = d3.scaleLinear()
+    .domain([0, 1])
+    .range([0, width]);
+
+  const y = d3.scaleLinear()
+    .domain([config.top_n, 0])
+    .range([height, 0]);
+
+  // X-axis
+  const xAxis = d3.axisBottom(x)
+    .ticks(5)
+    .tickFormat(d3.format(".2s"))
+    .tickSizeOuter(0);
+
+  g.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0,${height})`)
+    .call(xAxis);
+
+  // Initialize bars
+  g.selectAll(".bar")
+    .data(yearSlice[0].data, d => d.food)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", 0)
+    .attr("y", d => y(d.rank) + config.barPadding / 2)
+    .attr("width", d => x(d.value))
+    .attr("height", y(1) - y(0) - config.barPadding)
+    .style("fill", d => foodColors[d.food]);
+
+  // Initialize labels
+  g.selectAll(".label")
+    .data(yearSlice[0].data, d => d.food)
+    .enter()
+    .append("text")
+    .attr("class", "label")
+    .attr("x", d => -8)
+    .attr("y", d => y(d.rank) + (y(1) - y(0)) / 2 + 1)
+    .style("text-anchor", "end")
+    .style("font-weight", "bold")
+    .style("font-size", "14px")
+    .text(d => d.food);
+
+  // Initialize value labels
+  g.selectAll(".valueLabel")
+    .data(yearSlice[0].data, d => d.food)
+    .enter()
+    .append("text")
+    .attr("class", "valueLabel")
+    .attr("x", d => x(d.value) + 5)
+    .attr("y", d => y(d.rank) + (y(1) - y(0)) / 2 + 1)
+    .style("font-size", "13px")
+    .text(d => d3.format(",.0f")(d.value));
+
+  // Animation function
+  let ticker;
+  let yearIndex = 0;
+
+  function animate() {
+    const yearData = yearSlice[yearIndex];
+    config.year = yearData.year;
+
+    // Update x scale domain
+    x.domain([0, d3.max(yearData.data, d => d.value) * 1.1]);
+
+    // Update x-axis with transition
+    g.select(".x-axis")
+      .transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .call(xAxis);
+
+    // Update bars
+    const bars = g.selectAll(".bar")
+      .data(yearData.data, d => d.food);
+
+    bars.enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("y", d => y(d.item))
-      .attr("height", y.bandwidth())
       .attr("x", 0)
-      .attr("width", 0);
-    barsEnter.merge(bars)
-      .transition().duration(1000)
-      .attr("y", d => y(d.item))
+      .attr("y", d => y(config.top_n + 1))
+      .attr("width", 0)
+      .attr("height", y(1) - y(0) - config.barPadding)
+      .style("fill", d => foodColors[d.food])
+      .transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("y", d => y(d.rank) + config.barPadding / 2)
       .attr("width", d => x(d.value));
 
-    // Labels
-    const labels = svg.selectAll(".label").data(yearData, d => d.item);
-    labels.exit().transition().duration(1000).attr("x", 0).remove();
-    const labelsEnter = labels.enter()
+    bars.transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("y", d => y(d.rank) + config.barPadding / 2)
+      .attr("width", d => x(d.value));
+
+    bars.exit()
+      .transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("y", y(config.top_n + 1))
+      .attr("width", 0)
+      .remove();
+
+    // Update labels
+    const labels = g.selectAll(".label")
+      .data(yearData.data, d => d.food);
+
+    labels.enter()
       .append("text")
       .attr("class", "label")
-      .attr("y", d => y(d.item) + y.bandwidth() / 2 + 4)
-      .attr("x", 0)
-      .attr("text-anchor", "start");
-    labelsEnter.merge(labels)
-      .transition().duration(1000)
-      .attr("y", d => y(d.item) + y.bandwidth() / 2 + 4)
-      .attr("x", d => x(d.value) + 5)
-      .text(d => d3.format(",")(d.value));
+      .attr("x", -8)
+      .attr("y", y(config.top_n + 1))
+      .style("text-anchor", "end")
+      .style("font-weight", "bold")
+      .style("font-size", "14px")
+      .text(d => d.food)
+      .transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("y", d => y(d.rank) + (y(1) - y(0)) / 2 + 1);
 
-    // Year annotation
-    const yearText = svg.selectAll(".yearText").data([year]);
-    yearText.enter()
+    labels.transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("y", d => y(d.rank) + (y(1) - y(0)) / 2 + 1);
+
+    labels.exit()
+      .transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("y", y(config.top_n + 1))
+      .remove();
+
+    // Update value labels
+    const valueLabels = g.selectAll(".valueLabel")
+      .data(yearData.data, d => d.food);
+
+    valueLabels.enter()
       .append("text")
-      .attr("class", "yearText")
-      .attr("x", width)
-      .attr("y", height + margin.bottom - 10)
-      .attr("text-anchor", "end")
-      .attr("font-size", "48px")
-      .attr("fill", "#cccccc")
-      .merge(yearText)
-      .text(year);
+      .attr("class", "valueLabel")
+      .attr("x", d => x(d.value) + 5)
+      .attr("y", y(config.top_n + 1))
+      .style("font-size", "13px")
+      .text(d => d3.format(",.0f")(d.value))
+      .transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("y", d => y(d.rank) + (y(1) - y(0)) / 2 + 1);
+
+    valueLabels.transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("x", d => x(d.value) + 5)
+      .attr("y", d => y(d.rank) + (y(1) - y(0)) / 2 + 1)
+      .tween("text", function(d) {
+        const i = d3.interpolate(this.textContent.replace(/,/g, ""), d.value);
+        return function(t) {
+          this.textContent = d3.format(",.0f")(i(t));
+        };
+      });
+
+    valueLabels.exit()
+      .transition()
+      .duration(config.tickDuration)
+      .ease(d3.easeLinear)
+      .attr("y", y(config.top_n + 1))
+      .remove();
+
+    // Update year text
+    yearText.text(config.year);
+
+    // Continue animation
+    yearIndex++;
+    if (yearIndex < yearSlice.length) {
+      ticker = setTimeout(animate, config.tickDuration);
+    } else {
+      // Reset to beginning
+      yearIndex = 0;
+      setTimeout(() => {
+        ticker = setTimeout(animate, config.tickDuration);
+      }, 1000);
+    }
   }
 
-  // Play/pause logic
-  let i = 0;
-  let interval;
-  function play() {
-    interval = d3.interval(() => {
-      if (years.length === 0) return;
-      update(years[i]);
-      i = (i + 1) % years.length;
-      if (i === years.length - 1) interval.stop();
-    }, 1500);
-  }
-  function pause() {
-    if (interval) interval.stop();
-  }
-  d3.select("#play").on("click", play);
-  d3.select("#pause").on("click", pause);
+  // Control buttons
+  let isPlaying = false;
 
-  // Initialize
-  update(years[0]);
+  d3.select("#play").on("click", () => {
+    if (!isPlaying) {
+      isPlaying = true;
+      animate();
+    }
+  });
+
+  d3.select("#pause").on("click", () => {
+    isPlaying = false;
+    clearTimeout(ticker);
+  });
+
+  // Add some styling
+  d3.select("#play")
+    .style("margin", "10px")
+    .style("padding", "10px 20px")
+    .style("font-size", "16px")
+    .style("cursor", "pointer");
+
+  d3.select("#pause")
+    .style("margin", "10px")
+    .style("padding", "10px 20px")
+    .style("font-size", "16px")
+    .style("cursor", "pointer");
 });
 

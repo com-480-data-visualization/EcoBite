@@ -87,6 +87,7 @@
 
     <script src="resources/load_data.js"> </script> 
     <script src="resources/bar_chart.js"> </script>
+    <script src="resources/bar_chart_race.js"></script>
 
                              
     <section id="most_produced_foods">
@@ -175,15 +176,21 @@
         </div>
     </section>
 
-    <section id='idk'>
-      <div id='bar-chart-race'></div>  
-      <button id="play">Play</button>
-      <button id="pause">Pause</button>
-    </section>
+    <section id='bar_chart_race_section'>
+    <div class="container capsule" style="margin:10px">
+        <h2 class="section_title">Food Production Race Over Time</h2>
+        <div class="mb-8">
+            <p class="mb-4">Watch how global food production has evolved from 1962 to 2023. This animated visualization shows the top 12 food items by production volume racing through the decades.</p>
+            <div id='bar-chart-race'></div>  
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="play" class="btn">Play</button>
+                <button id="pause" class="btn">Pause</button>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script src="resources/bar_chart_race.js"></script>
-
-</div>                                                      
+</div>
 
     <!-- draw the map, and update the bar chart based on the selected country and year -->  
     <script src="resources/map.js"> </script>                                                      

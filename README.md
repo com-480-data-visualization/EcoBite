@@ -6,7 +6,11 @@
 | Mikael Verneri Karvinen | 404002 |
 | Heikel Rayan Jebali | 315789 |
 
-[Milestone 1](/milestone_1) • [Milestone 2](milestone_2) • [Milestone 3](#milestone-3)
+[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+
+## Accessing the website
+
+Our website can be accessed through this link: https://com-480-data-visualization.github.io/EcoBite/
 
 ## Milestone 1
 
@@ -45,5 +49,12 @@ Our inspiration centered around the original article from the Economist and a fe
 
 ## Milestone 2 
 
-[Functional prototype](https://com-480-data-visualization.github.io/EcoBite/)
+- Sketchbook [here](milestone_2/sketchbook.pdf)
+- Report [here](milestone_2/milestone_2.pdf)
+- Functional [here](https://com-480-data-visualization.github.io/EcoBite/)
+
+## Milestone 3
+
+- Screencast here
+- Process book [here](Process Book.pdf)
 
